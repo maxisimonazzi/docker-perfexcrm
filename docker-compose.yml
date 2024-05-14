@@ -1,0 +1,44 @@
+services:
+
+  web:
+    build: .
+    image: proyectoshtc:v1.0
+    container_name: proyectoshtc
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - internet
+      - dbnet
+
+  db:
+    image: mysql:8.4.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./custommy/my.cnf:/etc/mysql/conf.d/my.cnf
+    entrypoint: sh -c "chmod 644 /etc/mysql/conf.d/my.cnf && docker-entrypoint.sh mysqld"
+    networks:
+      - dbnet
+
+volumes:
+  db_data:
+  
+networks:
+  internet:
+  dbnet:
+    internal: true

@@ -1,0 +1,16 @@
+/application
+/assets
+/install*
+/media
+/modules
+/resources
+/system
+/temp
+/uploads
+.htaccess
+index.php
+package.json
+pipe.php
+tailwind.config.js
+web.config
+webpack.mix.js
