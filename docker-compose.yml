@@ -31,7 +31,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./custommy/my.cnf:/etc/mysql/conf.d/my.cnf
-    entrypoint: sh -c "chmod 644 /etc/mysql/conf.d/my.cnf && docker-entrypoint.sh mysqld"
+    entrypoint: sh -c "chmod 644 /etc/mysql/conf.d/my.cnf && chmod 777 /tmp && docker-entrypoint.sh mysqld"
     networks:
       - dbnet
 
