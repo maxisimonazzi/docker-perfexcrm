@@ -62,5 +62,9 @@ RUN chmod 755 /var/www/html/application/config/config.php
 RUN chmod 755 /var/www/html/application/config/app-config-sample.php
 RUN chmod 755 /var/www/html/temp/
 
-# Use the default Apache configuration
-CMD ["apache2-foreground"]
+# Create a shell script to start the cron service and Apache
+RUN echo -e "#!/bin/sh\nservice cron start\napache2-foreground" > /start.sh
+RUN chmod +x /start.sh
+
+# Start the shell script when the container runs
+CMD ["/start.sh"]
